@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FashionHub</title>
+  <style>
+   
+    :root {
+      --primary-color: #ff6f61;
+      --secondary-color: #333;
+      --background-light: #f4f4f4;
+      --text-dark: #222;
+      --accent-color: #00bcd4;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-dark);
+    }
+
+    header {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav li {
+      margin: 0 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
+    #filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    select {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card h3 {
+      margin: 0.5rem 0;
+      color: var(--primary-color);
+    }
+
+    .product-card button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .product-card button:hover {
+      background-color: var(--accent-color);
+    }
+
+    #cart {
+      padding: 2rem;
+      background-color: white;
+      margin: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    #cart h2 {
+      color: var(--primary-color);
+    }
+
+    #cart-items li {
+      margin: 0.5rem 0;
+    }
+
+    #cart button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    .product-details {
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .product-details h2 {
+      color: var(--primary-color);
+    }
+
+    .product-details img {
+      width: 30%;
+      height: 150px;
+      border-radius: 8px;
+    
+    }
+
+    .reviews {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    #auth {
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    #auth h2 {
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    #login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #login-form input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #login-form button {
+      padding: 0.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+      }
+
+      #filters {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #product-grid {
+        padding: 1rem;
+      }
+
+      #cart, .product-details, #auth {
+        margin: 1rem;
+        padding: 1rem;
+      }
+    }
+  
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FashionHub</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Men</a></li>
+        <li><a href="#">Women</a></li>
+        <li><a href="#">Kids</a></li>
+        <li><a href="#">Cart</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="filters">
+    <select id="category-filter">
+      <option value="">All Categories</option>
+      <option value="Men">Men</option>
+      <option value="Women">Women</option>
+    </select>
+    <select id="sort-filter">
+      <option value="">Sort By</option>
+      <option value="price">Price</option>
+      <option value="popularity">Popularity</option>
+      <option value="newest">Newest</option>
+    </select>
+  </section>
+
+  <main>
+    <section id="product-grid"></section>
+
+    <section class="product-details">
+      <img src="pics/kurta.jpg" alt="Product Image" />
+      <h2>Kurtha</h2>
+      <p>Warm and trendy jacket for winter season.</p>
+      <div class="reviews">
+        <h3>Reviews</h3>
+        <p>⭐️⭐️⭐️⭐️☆ - Great quality!</p>
+      </div>
+    </section>
+
+    <section id="cart">
+      <h2>Shopping Cart</h2>
+      <ul id="cart-items"></ul>
+      <button onclick="checkout()">Checkout</button>
+    </section>
+
+    <section id="auth">
+      <h2>Login</h2>
+      <form id="login-form">
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 FashionHub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const products = [
+      { id: 1, name: "T-Shirt", category: "Men", price: 20, brand: "Nike", popularity: 90, date: "2025-08-01" },
+      { id: 2, name: "Dress", category: "Women", price: 50, brand: "Zara", popularity: 80, date: "2025-08-10" },
+      { id: 3, name: "Jeans", category: "Men", price: 40, brand: "Levi's", popularity: 85, date: "2025-07-20" },
+    ];
+
+    let cart = [];
+
+    function renderProducts(filtered = products) {
+      const grid = document.getElementById("product-grid");
+      grid.innerHTML = filtered.map(p => `
+        <div class="product-card">
+          <h3>${p.name}</h3>
+          <p>${p.brand}</p>
+          <p>$${p.price}</p>
+          <button onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+      `).join("");
+    }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      cart.push(product);
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cart-items");
+      cartList.innerHTML = cart.map(item => `<li>${item.name} - $${item.price}</li>`).join("");
+    }
+
+    function checkout() {
+      if (cart.length === 0) return alert("Cart is empty!");
+      alert("Proceeding to checkout...");
+      // Stripe or PayPal integration would go here
+    }
+
+    function filterAndSort() {
+      const category = document.getElementById("category-filter").value;
+      const sort = document.getElementById("sort-filter").value;
+
+      let filtered = products.filter(p => !category || p.category === category);
+
+      if (sort === "price") filtered.sort((a, b) => a.price - b.price);
+      if (sort === "popularity") filtered.sort((a, b) => b.popularity - a.popularity);
+      if (sort === "newest") filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      renderProducts(filtered);
+    }
+
+    document.getElementById("category-filter").addEventListener("change", filterAndSort);
+    document.getElementById("sort-filter").addEventListener("change", filterAndSort);
+
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = e.target[0].value;
+      const password = e.target[1].value;
+      alert(`Logged in as ${email}`);
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>
